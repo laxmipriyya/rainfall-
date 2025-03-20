@@ -4,7 +4,7 @@ import requests
 app = Flask(__name__)
 
 # Replace with your actual weather API key
-API_KEY = "YOUR_API_KEY"
+API_KEY = "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"
 WEATHER_API_URL = "http://api.openweathermap.org/data/2.5/weather"
 
 @app.route("/predict_rainfall", methods=["GET"])
