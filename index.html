@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rainfall Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Rainfall Prediction</h1>
+    <input type="text" id="city" placeholder="Enter city name">
+    <button onclick="getPrediction()">Predict Rainfall</button>
+    <p id="result"></p>
+
+    <script>
+        async function getPrediction() {
+            const city = document.getElementById("city").value;
+            if (!city) {
+                alert("Please enter a city name.");
+                return;
+            }
+            
+            try {
+                const response = await fetch(`http://127.0.0.1:5000/predict_rainfall?city=${city}`);
+                const data = await response.json();
+                
+                if (data.error) {
+                    document.getElementById("result").innerText = `Error: ${data.error}`;
+                } else {
+                    document.getElementById("result").innerText = `City: ${data.city}\nWeather: ${data.weather}\nPrecipitation: ${data.precipitation} mm\nPrediction: ${data.prediction}`;
+                }
+            } catch (error) {
+                document.getElementById("result").innerText = "Failed to fetch data. Please try again.";
+            }
+        }
+    </script>
+</body>
+</html>
